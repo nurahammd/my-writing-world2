@@ -1,1 +1,276 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="বাংলা ও ইংরেজিতে ব্যক্তিগত লেখা ও প্রবন্ধ">
+  <title>আমার লেখার জগৎ | My Writing World</title>
 
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #faf8f3;
+      color: #292820;
+      font-family: Georgia, "Noto Serif Bengali", serif;
+      line-height: 1.8;
+    }
+
+    header {
+      padding: 24px 18px;
+      border-bottom: 1px solid #e4dfd4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    button, input { font: inherit; }
+
+    button {
+      cursor: pointer;
+      border: 1px solid #b9ae98;
+      background: transparent;
+      color: inherit;
+      padding: 7px 12px;
+      border-radius: 6px;
+    }
+
+    main {
+      max-width: 760px;
+      margin: auto;
+      padding: 35px 20px;
+    }
+
+    .intro { margin: 25px 0 35px; }
+
+    h1 {
+      font-size: clamp(30px, 7vw, 46px);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    h2 { font-size: 24px; }
+
+    .muted { color: #706c62; }
+
+    .search {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d8d0c2;
+      border-radius: 7px;
+      background: white;
+      margin: 12px 0 22px;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .article {
+      padding: 20px 0;
+      border-top: 1px solid #e4dfd4;
+    }
+
+    .article h3 { margin: 5px 0; }
+
+    .article h3 a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .article h3 a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #e4dfd4;
+      padding: 24px 12px;
+      color: #706c62;
+    }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo" id="logo">আমার লেখার জগৎ</div>
+    <button id="language" onclick="changeLanguage()">
+      English
+    </button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="muted" id="eyebrow">ব্যক্তিগত লেখালেখি</p>
+      <h1 id="welcome">চিন্তা থেকে লেখায়</h1>
+      <p id="description">
+        দর্শন, সত্য, মানুষ ও পৃথিবী নিয়ে আমার ভাবনা।
+      </p>
+    </section>
+
+    <h2 id="sectionTitle">লেখাসমূহ</h2>
+
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="লেখা খুঁজুন..."
+      aria-label="Search writings"
+      oninput="filterArticles()"
+    >
+
+    <div class="categories" id="categories">
+      <button onclick="filterCategory('all', this)">সব লেখা</button>
+      <button onclick="filterCategory('philosophy', this)">দর্শন</button>
+      <button onclick="filterCategory('society', this)">সমাজ</button>
+      <button onclick="filterCategory('knowledge', this)">জ্ঞান</button>
+    </div>
+
+    <section id="articles">
+      <article class="article" data-category="philosophy"
+        data-bn="সত্য কী? সত্য ও যুক্তি দর্শন"
+        data-en="What Is Truth? Truth and reason philosophy">
+        <p class="muted" data-bn="দর্শন · প্রবন্ধ"
+          data-en="Philosophy · Essay">দর্শন · প্রবন্ধ</p>
+        <h3><a href="#truth" data-bn="সত্য কী?"
+          data-en="What Is Truth?">সত্য কী?</a></h3>
+        <p data-bn="সত্য যাচাই করার অর্থ ও পদ্ধতি নিয়ে ভাবনা।"
+          data-en="Reflections on how truth can be examined.">
+          সত্য যাচাই করার অর্থ ও পদ্ধতি নিয়ে ভাবনা।
+        </p>
+      </article>
+
+      <article class="article" data-category="society"
+        data-bn="সমাজ কীভাবে গড়ে ওঠে সমাজ"
+        data-en="How Is Society Formed? society">
+        <p class="muted" data-bn="সমাজ · আলোচনা"
+          data-en="Society · Discussion">সমাজ · আলোচনা</p>
+        <h3><a href="#society" data-bn="সমাজ কীভাবে গড়ে ওঠে?"
+          data-en="How Is Society Formed?">
+          সমাজ কীভাবে গড়ে ওঠে?</a></h3>
+        <p data-bn="মানুষের পারস্পরিক সম্পর্ক ও সামাজিক নিয়ম নিয়ে আলোচনা।"
+          data-en="An exploration of human relationships and social rules.">
+          মানুষের পারস্পরিক সম্পর্ক ও সামাজিক নিয়ম নিয়ে আলোচনা।
+        </p>
+      </article>
+
+      <article class="article" data-category="knowledge"
+        data-bn="জ্ঞান কী? শেখা ও অনুসন্ধান জ্ঞান"
+        data-en="What Is Knowledge? Learning and inquiry">
+        <p class="muted" data-bn="জ্ঞান · প্রবন্ধ"
+          data-en="Knowledge · Essay">জ্ঞান · প্রবন্ধ</p>
+        <h3><a href="#knowledge" data-bn="জ্ঞান কী?"
+          data-en="What Is Knowledge?">জ্ঞান কী?</a></h3>
+        <p data-bn="বিশ্বাস, প্রমাণ ও বোঝাপড়ার সম্পর্ক।"
+          data-en="The relationship between belief, evidence and understanding.">
+          বিশ্বাস, প্রমাণ ও বোঝাপড়ার সম্পর্ক।
+        </p>
+      </article>
+    </section>
+
+    <p id="empty" hidden>কোনো লেখা পাওয়া যায়নি।</p>
+  </main>
+
+  <footer id="footer">
+    আমার লেখার জগৎ · চিন্তা, যুক্তি ও সত্যের অনুসন্ধান
+  </footer>
+
+  <script>
+    let language = "bn";
+    let selectedCategory = "all";
+
+    function changeLanguage() {
+      language = language === "bn" ? "en" : "bn";
+
+      document.documentElement.lang = language;
+      document.getElementById("language").textContent =
+        language === "bn" ? "English" : "বাংলা";
+
+      document.getElementById("logo").textContent =
+        language === "bn" ? "আমার লেখার জগৎ" : "My Writing World";
+
+      document.getElementById("eyebrow").textContent =
+        language === "bn" ? "ব্যক্তিগত লেখালেখি" : "Personal Writing";
+
+      document.getElementById("welcome").textContent =
+        language === "bn" ? "চিন্তা থেকে লেখায়" : "From Thought to Writing";
+
+      document.getElementById("description").textContent =
+        language === "bn"
+        ? "দর্শন, সত্য, মানুষ ও পৃথিবী নিয়ে আমার ভাবনা।"
+        : "My thoughts on philosophy, truth, people and the world.";
+
+      document.getElementById("sectionTitle").textContent =
+        language === "bn" ? "লেখাসমূহ" : "My Writings";
+
+      document.getElementById("search").placeholder =
+        language === "bn" ? "লেখা খুঁজুন..." : "Search writings...";
+
+      document.getElementById("footer").textContent =
+        language === "bn"
+        ? "আমার লেখার জগৎ · চিন্তা, যুক্তি ও সত্যের অনুসন্ধান"
+        : "My Writing World · Exploring thought, reason and truth";
+
+      document.querySelectorAll("[data-bn][data-en]").forEach(el => {
+        el.textContent = el.dataset[language];
+      });
+
+      const buttons = document.querySelectorAll("#categories button");
+      const bn = ["সব লেখা", "দর্শন", "সমাজ", "জ্ঞান"];
+      const en = ["All writings", "Philosophy", "Society", "Knowledge"];
+
+      buttons.forEach((button, i) => {
+        button.textContent = language === "bn" ? bn[i] : en[i];
+      });
+
+      document.getElementById("empty").textContent =
+        language === "bn" ? "কোনো লেখা পাওয়া যায়নি।" : "No writings found.";
+
+      filterArticles();
+    }
+
+    function filterCategory(category, button) {
+      selectedCategory = category;
+      filterArticles();
+    }
+
+    function filterArticles() {
+      const query = document.getElementById("search")
+        .value.toLowerCase().trim();
+
+      let visible = 0;
+
+      document.querySelectorAll(".article").forEach(article => {
+        const text = (
+          article.textContent + " " +
+          article.dataset.bn + " " +
+          article.dataset.en
+        ).toLowerCase();
+
+        const matchesText = text.includes(query);
+        const matchesCategory =
+          selectedCategory === "all" ||
+          article.dataset.category === selectedCategory;
+
+        article.hidden = !(matchesText && matchesCategory);
+
+        if (!article.hidden) visible++;
+      });
+
+      document.getElementById("empty").hidden = visible > 0;
+    }
+  </script>
+</body>
+  </html>
